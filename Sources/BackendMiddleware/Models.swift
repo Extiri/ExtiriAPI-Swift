@@ -69,7 +69,7 @@ public class BMInfoUser: Codable {
 	public var name: String
 	public var email: String
 	
-	init(id: UUID, name: String, email: String) {
+	init(id: String, name: String, email: String) {
 		self.id = id
 		self.name = name
 		self.email = email
