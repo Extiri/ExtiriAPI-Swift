@@ -20,6 +20,11 @@ public class BMToken: Codable {
 	var token: String
 }
 
+public class BMError: Codable {
+	var reason: String
+	var error: Bool
+}
+
 public class BMUser: Codable {
 	public var id: String
 	public var name: String
@@ -27,24 +32,35 @@ public class BMUser: Codable {
 }
 
 public class BMNewUser: Codable {
+	init(name: String, email: String, password: String) {
+		self.name = name
+		self.email = email
+		self.password = password
+	}
+	
 	public var name: String
 	public var email: String
 	public var password: String
 }
 
 public class BMLoginUser: Codable {
+	init(email: String, password: String) {
+		self.email = email
+		self.password = password
+	}
+	
 	public var email: String
 	public var password: String
 }
 
 public class BMNewSnippet: Codable {
-	public var title: String
-	public var description: String
-	public var code: String
-	
 	public init(title: String, description: String, code: String) {
 		self.title = title
 		self.description = description
 		self.code = code
 	}
+	
+	public var title: String
+	public var description: String
+	public var code: String
 }

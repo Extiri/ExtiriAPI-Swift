@@ -1,3 +1,3 @@
 # BackendMiddleware
 
-A description of this package.
+A library for interacting with CodeMenu backend.

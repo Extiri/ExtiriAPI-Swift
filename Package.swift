@@ -11,7 +11,7 @@ let package = Package(
     products: [
         .library(
             name: "BackendMiddleware",
-            targets: ["BackendMiddleware"])
+			targets: ["BackendMiddleware"])
     ],
     dependencies: [
 
