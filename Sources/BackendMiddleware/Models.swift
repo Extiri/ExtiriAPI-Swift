@@ -10,6 +10,7 @@ import Foundation
 public class BMSnippet: Codable {
 	public var id: String
 	public var title: String
+	public var language: String
 	public var desc: String
 	public var code: String
 	public var creator: String
@@ -53,14 +54,16 @@ public class BMLoginUser: Codable {
 }
 
 public class BMNewSnippet: Codable {
-	public init(title: String, description: String, code: String) {
+	public init(title: String, language: String, description: String, code: String) {
 		self.title = title
 		self.description = description
+		self.language = language
 		self.code = code
 	}
 	
 	public var title: String
 	public var description: String
+	public var language: String
 	public var code: String
 }
 
