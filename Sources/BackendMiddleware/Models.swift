@@ -31,7 +31,7 @@ public class BMUser: Codable {
 }
 
 public class BMNewUser: Codable {
-	init(name: String, email: String, password: String) {
+	public init(name: String, email: String, password: String) {
 		self.name = name
 		self.email = email
 		self.password = password
@@ -43,7 +43,7 @@ public class BMNewUser: Codable {
 }
 
 public class BMLoginUser: Codable {
-	init(email: String, password: String) {
+	public init(email: String, password: String) {
 		self.email = email
 		self.password = password
 	}
@@ -65,13 +65,13 @@ public class BMNewSnippet: Codable {
 }
 
 public class BMInfoUser: Codable {
-	public var id: String
-	public var name: String
-	public var email: String
-	
-	init(id: String, name: String, email: String) {
+	public init(id: String, name: String, email: String) {
 		self.id = id
 		self.name = name
 		self.email = email
 	}
+	
+	public var id: String
+	public var name: String
+	public var email: String
 }
