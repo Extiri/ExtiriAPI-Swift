@@ -204,7 +204,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func isTokenValid(user: BMLoginUser, completionHandler: @escaping (Result<Bool, Error>) -> ()) {
+	public func isTokenValid(completionHandler: @escaping (Result<Bool, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/users/valid/\(token)")!)
 		
 		request.httpMethod = "GET"
@@ -352,7 +352,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func logoutUser(user: BMLoginUser, completionHandler: @escaping (Error?) -> ()) {
+	public func logoutUser(completionHandler: @escaping (Error?) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/users/login/\(token)")!)
 		
 		request.httpMethod = "GET"
