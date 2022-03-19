@@ -65,7 +65,7 @@ public class BMNewSnippet: Codable {
 }
 
 public class BMInfoUser: Codable {
-	public var id: UUID
+	public var id: String
 	public var name: String
 	public var email: String
 	
