@@ -17,12 +17,12 @@ public class BMSnippet: Codable {
 }
 
 public class BMToken: Codable {
-	var token: String
+	public var token: String
 }
 
 public class BMError: Codable {
-	var reason: String
-	var error: Bool
+	public var reason: String
+	public var error: Bool
 }
 
 public class BMUser: Codable {
@@ -65,9 +65,9 @@ public class BMNewSnippet: Codable {
 }
 
 public class BMInfoUser: Codable {
-	var id: UUID
-	var name: String
-	var email: String
+	public var id: UUID
+	public var name: String
+	public var email: String
 	
 	init(id: UUID, name: String, email: String) {
 		self.id = id
