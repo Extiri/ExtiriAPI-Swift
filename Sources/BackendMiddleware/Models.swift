@@ -28,7 +28,6 @@ public class BMError: Codable {
 public class BMUser: Codable {
 	public var id: String
 	public var name: String
-	public var email: String
 }
 
 public class BMNewUser: Codable {
@@ -63,4 +62,16 @@ public class BMNewSnippet: Codable {
 	public var title: String
 	public var description: String
 	public var code: String
+}
+
+public class BMInfoUser: Codable {
+	var id: UUID
+	var name: String
+	var email: String
+	
+	init(id: UUID, name: String, email: String) {
+		self.id = id
+		self.name = name
+		self.email = email
+	}
 }

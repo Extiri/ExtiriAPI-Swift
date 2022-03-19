@@ -207,17 +207,7 @@ public class BackendMiddleware {
 	public func isTokenValid(user: BMLoginUser, completionHandler: @escaping (Result<Bool, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/users/valid/\(token)")!)
 		
-		request.httpMethod = "POST"
-		
-		do {
-			let data = try jsonEncoder.encode(user)
-			
-			request.httpBody = data
-			request.setValue("\(data.count)", forHTTPHeaderField: "Content-Length")
-			request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-		} catch {
-			completionHandler(.failure(error))
-		}
+		request.httpMethod = "GET"
 		
 		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
 			if let error = error {
@@ -283,6 +273,40 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
+	public func getUserInfo(completionHandler: @escaping (Result<BMInfoUser, Error>) -> ()) {
+		var request = URLRequest(url: URL(string: host + "api/users/info/\(token)")!)
+		
+		request.httpMethod = "GET"
+		
+		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+			if let error = error {
+				completionHandler(.failure(error))
+			} else {
+				if let httpResponse = response as? HTTPURLResponse {
+					if httpResponse.statusCode != 200 {
+						completionHandler(.failure(self.getError(statusCode: httpResponse.statusCode, data: data!)))
+						return
+					}
+				}
+				
+				if let error = self.parseAsError(data: data!) {
+					completionHandler(.failure(error))
+					return
+				}
+				
+				do {
+					let user = try self.jsonDecoder.decode(BMInfoUser.self, from: data!)
+					
+					completionHandler(.success(user))
+				} catch {
+					completionHandler(.failure(error))
+				}
+			}
+		}
+		
+		dataTask.resume()
+	}
+	
 	public func loginUser(user: BMLoginUser, completionHandler: @escaping (Result<BMToken, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/users/login")!)
 		
@@ -331,17 +355,7 @@ public class BackendMiddleware {
 	public func logoutUser(user: BMLoginUser, completionHandler: @escaping (Error?) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/users/login/\(token)")!)
 		
-		request.httpMethod = "POST"
-		
-		do {
-			let data = try jsonEncoder.encode(user)
-			
-			request.httpBody = data
-			request.setValue("\(data.count)", forHTTPHeaderField: "Content-Length")
-			request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-		} catch {
-			completionHandler(error)
-		}
+		request.httpMethod = "GET"
 		
 		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
 			if let error = error {
