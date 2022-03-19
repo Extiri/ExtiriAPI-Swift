@@ -11,7 +11,7 @@ public class BackendMiddleware {
 		}
 	}
 	
-	private var token: String
+	private(set) var token: String
 	
 	public enum Environment {
 		case Development
