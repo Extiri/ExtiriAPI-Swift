@@ -12,6 +12,7 @@ public class BackendMiddleware {
 	}
 	
 	public var token: String
+	public var version = 1
 	
 	public enum Environment {
 		case Development
@@ -64,7 +65,7 @@ public class BackendMiddleware {
 	}
 	
 	public func getSnippets(after: String? = nil, completionHandler: @escaping (Result<[BMSnippet], Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/snippets\(after != nil ? "/?after=\(after!)" : "")")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets\(after != nil ? "/?after=\(after!)" : "")")!)
 		
 		request.httpMethod = "GET"
 		
@@ -98,7 +99,7 @@ public class BackendMiddleware {
 	}
 	
 	public func getSnippet(id: String, completionHandler: @escaping (Result<BMSnippet, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/snippets/get/\(id)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/get/\(id)")!)
 		
 		request.httpMethod = "GET"
 		
@@ -132,7 +133,7 @@ public class BackendMiddleware {
 	}
 	
 	public func deleteSnippet(id: String, completionHandler: @escaping (Error?) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/snippets/delete/\(token)/\(id)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/delete/\(token)/\(id)")!)
 		
 		request.httpMethod = "DELETE"
 		
@@ -160,7 +161,7 @@ public class BackendMiddleware {
 	}
 	
 	public func createSnippet(snippet: BMNewSnippet, completionHandler: @escaping (Result<BMSnippet, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/snippets/create/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/create/\(token)")!)
 		
 		request.httpMethod = "POST"
 	
@@ -205,7 +206,7 @@ public class BackendMiddleware {
 	}
 	
 	public func isTokenValid(completionHandler: @escaping (Result<Bool, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/users/valid/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/valid/\(token)")!)
 		
 		request.httpMethod = "GET"
 		
@@ -240,7 +241,7 @@ public class BackendMiddleware {
 	}
 	
 	public func getUser(id: String, completionHandler: @escaping (Result<BMUser, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/users/get/\(id)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/get/\(id)")!)
 		
 		request.httpMethod = "GET"
 		
@@ -274,7 +275,7 @@ public class BackendMiddleware {
 	}
 	
 	public func getUserInfo(completionHandler: @escaping (Result<BMInfoUser, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/users/info/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/info/\(token)")!)
 		
 		request.httpMethod = "GET"
 		
@@ -308,7 +309,7 @@ public class BackendMiddleware {
 	}
 	
 	public func loginUser(user: BMLoginUser, completionHandler: @escaping (Result<BMToken, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/users/login")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/login")!)
 		
 		request.httpMethod = "POST"
 		
@@ -353,7 +354,7 @@ public class BackendMiddleware {
 	}
 	
 	public func logoutUser(completionHandler: @escaping (Error?) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/users/login/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/login/\(token)")!)
 		
 		request.httpMethod = "GET"
 		
@@ -382,7 +383,7 @@ public class BackendMiddleware {
 	}
 	
 	public func signupUser(user: BMNewUser, completionHandler: @escaping (Error?) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/users/delete")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/delete")!)
 		
 		request.httpMethod = "POST"
 		
@@ -421,7 +422,7 @@ public class BackendMiddleware {
 	}
 	
 	public func deleteUser(user: BMLoginUser, completionHandler: @escaping (Error?) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/users/delete")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/delete")!)
 		
 		request.httpMethod = "DELETE"
 		
