@@ -12,6 +12,7 @@ public class BMSnippet: Codable {
 	public var title: String
 	public var language: String
 	public var desc: String
+	public var category: String
 	public var code: String
 	public var creator: String
 	public var creationDate: Date
@@ -63,6 +64,7 @@ public class BMNewSnippet: Codable {
 	
 	public var title: String
 	public var description: String
+	public var category: String
 	public var language: String
 	public var code: String
 }
