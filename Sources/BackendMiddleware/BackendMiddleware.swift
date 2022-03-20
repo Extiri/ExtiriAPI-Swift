@@ -64,7 +64,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func getSnippets(after: String? = nil, completionHandler: @escaping (Result<[BMSnippet], Error>) -> ()) {
+	public func getSnippets(after: String? = nil, completionHandler: @escaping (Result<BMSnippetsResponse, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets\(after != nil ? "/?after=\(after!)" : "")")!)
 		
 		request.httpMethod = "GET"
@@ -86,9 +86,77 @@ public class BackendMiddleware {
 				}
 				
 				do {
-					let snippets = try self.jsonDecoder.decode([BMSnippet].self, from: data!)
+					let response = try self.jsonDecoder.decode(BMSnippetsResponse.self, from: data!)
 					
-					completionHandler(.success(snippets))
+					completionHandler(.success(response))
+				} catch {
+					completionHandler(.failure(error))
+				}
+			}
+		}
+		
+		dataTask.resume()
+	}
+	
+	public func getLanguages(completionHandler: @escaping (Result<[String], Error>) -> ()) {
+		var request = URLRequest(url: URL(string: host + "api/\(version)/languages")!)
+		
+		request.httpMethod = "GET"
+		
+		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+			if let error = error {
+				completionHandler(.failure(error))
+			} else {
+				if let httpResponse = response as? HTTPURLResponse {
+					if httpResponse.statusCode != 200 {
+						completionHandler(.failure(self.getError(statusCode: httpResponse.statusCode, data: data!)))
+						return
+					}
+				}
+				
+				if let error = self.parseAsError(data: data!) {
+					completionHandler(.failure(error))
+					return
+				}
+				
+				do {
+					let languages = try self.jsonDecoder.decode([String].self, from: data!)
+					
+					completionHandler(.success(languages))
+				} catch {
+					completionHandler(.failure(error))
+				}
+			}
+		}
+		
+		dataTask.resume()
+	}
+	
+	public func getCategories(completionHandler: @escaping (Result<[String], Error>) -> ()) {
+		var request = URLRequest(url: URL(string: host + "api/\(version)/categories")!)
+		
+		request.httpMethod = "GET"
+		
+		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+			if let error = error {
+				completionHandler(.failure(error))
+			} else {
+				if let httpResponse = response as? HTTPURLResponse {
+					if httpResponse.statusCode != 200 {
+						completionHandler(.failure(self.getError(statusCode: httpResponse.statusCode, data: data!)))
+						return
+					}
+				}
+				
+				if let error = self.parseAsError(data: data!) {
+					completionHandler(.failure(error))
+					return
+				}
+				
+				do {
+					let categories = try self.jsonDecoder.decode([String].self, from: data!)
+					
+					completionHandler(.success(categories))
 				} catch {
 					completionHandler(.failure(error))
 				}

@@ -7,6 +7,17 @@
 
 import Foundation
 
+public class BMSnippetsResponse: Codable {
+	public var items: [BMSnippet]
+	public var metadata: BMMetada
+}
+
+public class BMMetada: Codable {
+	public var page: Int
+	public var per: Int
+	public var total: Int
+}
+
 public class BMSnippet: Codable {
 	public var id: String
 	public var title: String
@@ -55,9 +66,10 @@ public class BMLoginUser: Codable {
 }
 
 public class BMNewSnippet: Codable {
-	public init(title: String, language: String, description: String, code: String) {
+	public init(title: String, language: String, category: String, description: String, code: String) {
 		self.title = title
 		self.description = description
+		self.category = category
 		self.language = language
 		self.code = code
 	}
