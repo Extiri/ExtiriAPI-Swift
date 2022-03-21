@@ -64,8 +64,24 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func getSnippets(after: String? = nil, completionHandler: @escaping (Result<BMSnippetsResponse, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets\(after != nil ? "/?after=\(after!)" : "")")!)
+	public func getSnippets(page: Int = 1, query: String? = nil, language: String? = nil, category: String? = nil, creator: String? = nil, completionHandler: @escaping (Result<BMSnippetsResponse, Error>) -> ()) {
+		var urlString = host + "api/\(version)/snippets/?"
+		
+		let parameters = [
+			"page": String(page),
+			"query": query,
+			"language": language,
+			"category": category,
+			"creator": creator
+		]
+		
+		for (key, value) in parameters {
+			if let value = value {
+				urlString.append("\(key)=\(value)&")
+			}
+		}
+		
+		var request = URLRequest(url: URL(string: urlString)!)
 		
 		request.httpMethod = "GET"
 		
