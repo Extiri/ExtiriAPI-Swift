@@ -438,7 +438,7 @@ public class BackendMiddleware {
 	}
 	
 	public func logoutUser(completionHandler: @escaping (Error?) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/\(version)/users/login/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/logout/\(token)")!)
 		
 		request.httpMethod = "GET"
 		
