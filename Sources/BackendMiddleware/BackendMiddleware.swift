@@ -467,7 +467,7 @@ public class BackendMiddleware {
 	}
 	
 	public func signupUser(user: BMNewUser, completionHandler: @escaping (Error?) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/\(version)/users/delete")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/signup")!)
 		
 		request.httpMethod = "POST"
 		

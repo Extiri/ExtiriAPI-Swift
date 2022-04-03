@@ -9,10 +9,10 @@ import Foundation
 
 public class BMSnippetsResponse: Codable {
 	public var items: [BMSnippet]
-	public var metadata: BMMetada
+	public var metadata: BMMetadata
 }
 
-public class BMMetada: Codable {
+public class BMMetadata: Codable {
 	public var page: Int
 	public var per: Int
 	public var total: Int
