@@ -507,6 +507,7 @@ public class BackendMiddleware {
 		
 				if String(data: data!, encoding: .utf8)!.contains("Password must be") {
 					completionHandler(NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey: String(data: data!, encoding: .utf8)!]))
+					return
 				}
 
 				completionHandler(nil)
