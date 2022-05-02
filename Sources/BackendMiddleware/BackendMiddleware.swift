@@ -497,18 +497,6 @@ public class BackendMiddleware {
 					completionHandler(error)
 					return
 				}
-				
-				// This will definetly break in future when messsage gets inevitably changed and I will probably spend 97 hours attempting
-				// to find the reason why registering doesn't work.
-				// Just a remainder for myself: When you come back here, remember, make this message be returned by server using some kind
-				// of error code.
-				//
-				// Wiktor Wójcik - 12:37 02.05.2022
-		
-				if String(data: data!, encoding: .utf8)!.contains("Password must be") {
-					completionHandler(NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey: String(data: data!, encoding: .utf8)!]))
-					return
-				}
 
 				completionHandler(nil)
 			}
