@@ -8,6 +8,11 @@
 import Foundation
 
 public class BMSnippetsResponse: Codable {
+	public var page: BMPage
+	public var totalNumberOfResults: Int
+}
+
+public class BMPage: Codable {
 	public var items: [BMSnippet]
 	public var metadata: BMMetadata
 }
@@ -16,6 +21,10 @@ public class BMMetadata: Codable {
 	public var page: Int
 	public var per: Int
 	public var total: Int
+}
+
+public class BMCount: Codable {
+	public var count: Int
 }
 
 public class BMSnippet: Codable {

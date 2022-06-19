@@ -64,6 +64,56 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
+	
+	public func getTotalNumberOfSnippets(query: String? = nil, language: String? = nil, category: String? = nil, creator: String? = nil, completionHandler: @escaping (Result<BMCount, Error>) -> ()) {
+		var urlString = host + "api/\(version)/snippets/countOfTotalResults/?"
+		
+		let parameters = [
+			"query": query,
+			"language": language,
+			"category": category,
+			"creator": creator
+		]
+		
+		for (key, value) in parameters {
+			if let value = value {
+				urlString.append("\(key)=\(value)&")
+			}
+		}
+		
+		var request = URLRequest(url: URL(string: urlString)!)
+		
+		request.httpMethod = "GET"
+		
+		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+			if let error = error {
+				completionHandler(.failure(error))
+			} else {
+				if let httpResponse = response as? HTTPURLResponse {
+					if httpResponse.statusCode != 200 {
+						completionHandler(.failure(self.getError(statusCode: httpResponse.statusCode, data: data!)))
+						return
+					}
+				}
+				
+				if let error = self.parseAsError(data: data!) {
+					completionHandler(.failure(error))
+					return
+				}
+				
+				do {
+					let response = try self.jsonDecoder.decode(BMCount.self, from: data!)
+					
+					completionHandler(.success(response))
+				} catch {
+					completionHandler(.failure(error))
+				}
+			}
+		}
+		
+		dataTask.resume()
+	}
+	
 	public func getSnippets(page: Int = 1, query: String? = nil, language: String? = nil, category: String? = nil, creator: String? = nil, completionHandler: @escaping (Result<BMSnippetsResponse, Error>) -> ()) {
 		var urlString = host + "api/\(version)/snippets/?"
 		
