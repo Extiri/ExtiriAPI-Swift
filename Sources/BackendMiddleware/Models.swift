@@ -22,7 +22,7 @@ public class BMMetadata: Codable {
 	public var per: Int
 	public var total: Int
 }
-
+  
 public class BMCount: Codable {
 	public var count: Int
 }

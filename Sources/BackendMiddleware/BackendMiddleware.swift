@@ -295,9 +295,10 @@ public class BackendMiddleware {
 	}
 	
 	public func createSnippet(snippet: BMNewSnippet, completionHandler: @escaping (Result<BMSnippet, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/create/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/create")!)
 		
 		request.httpMethod = "POST"
+		request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 	
 		do {
 			let data = try jsonEncoder.encode(snippet)
@@ -340,9 +341,10 @@ public class BackendMiddleware {
 	}
 	
 	public func isTokenValid(completionHandler: @escaping (Result<Bool, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/\(version)/users/valid/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/valid")!)
 		
 		request.httpMethod = "GET"
+		request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 		
 		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
 			if let error = error {
@@ -409,9 +411,10 @@ public class BackendMiddleware {
 	}
 	
 	public func getUserInfo(completionHandler: @escaping (Result<BMInfoUser, Error>) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/\(version)/users/info/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/me")!)
 		
 		request.httpMethod = "GET"
+		request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 		
 		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
 			if let error = error {
@@ -445,7 +448,11 @@ public class BackendMiddleware {
 	public func loginUser(user: BMLoginUser, completionHandler: @escaping (Result<BMToken, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/users/login")!)
 		
+		let credentialsString = "\(user.email):\(user.password)"
+		let credentials = Data(credentialsString.utf8).base64EncodedString()
+		
 		request.httpMethod = "POST"
+		request.addValue("Basic \(credentials)", forHTTPHeaderField: "Authorization")
 		
 		do {
 			let data = try jsonEncoder.encode(user)
@@ -488,9 +495,10 @@ public class BackendMiddleware {
 	}
 	
 	public func logoutUser(completionHandler: @escaping (Error?) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/\(version)/users/logout/\(token)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/users/logout")!)
 		
 		request.httpMethod = "GET"
+		request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 		
 		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
 			if let error = error {
