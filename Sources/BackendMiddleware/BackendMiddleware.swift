@@ -412,7 +412,7 @@ public class BackendMiddleware {
 	
 	public func getUserInfo(completionHandler: @escaping (Result<BMInfoUser, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/users/me")!)
-		
+
 		request.httpMethod = "GET"
 		request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 		
