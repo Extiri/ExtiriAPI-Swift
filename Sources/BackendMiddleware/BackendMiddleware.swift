@@ -267,9 +267,10 @@ public class BackendMiddleware {
 	}
 	
 	public func deleteSnippet(id: String, completionHandler: @escaping (Error?) -> ()) {
-		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/delete/\(token)/\(id)")!)
+		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/delete/\(id)")!)
 		
 		request.httpMethod = "DELETE"
+		request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 		
 		let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
 			if let error = error {
