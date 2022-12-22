@@ -13,16 +13,10 @@ public class BackendMiddleware {
 	
 	public var token: String
 	public var version = 1
+
+  public var host = "https://extiri.com/"
 	
-	public enum Environment {
-		case Development
-		case Production
-	}
-	
-	private var enironment: Environment
-  var host = "https://extiri.com/"
-	
-	public init(token: String, environment: Environment = .Production) {
+	public init(token: String) {
 		self.token = token
 		self.enironment = environment
 	}
