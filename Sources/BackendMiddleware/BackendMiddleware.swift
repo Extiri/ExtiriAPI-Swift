@@ -18,7 +18,6 @@ public class BackendMiddleware {
 	
 	public init(token: String) {
 		self.token = token
-		self.enironment = environment
 	}
 	
 	var jsonEncoder: JSONEncoder = JSONEncoder()
