@@ -20,14 +20,7 @@ public class BackendMiddleware {
 	}
 	
 	private var enironment: Environment
-	private var host: String {
-		switch enironment {
-			case .Development:
-				return "http://127.0.0.1:8080/"
-			case .Production:
-				return "https://extiri.com/"
-		}
-	}
+  var host = "https://extiri.com/"
 	
 	public init(token: String, environment: Environment = .Production) {
 		self.token = token
