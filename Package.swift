@@ -4,25 +4,25 @@
 import PackageDescription
 
 let package = Package(
-    name: "BackendMiddleware",
+    name: "ExtiriAPI",
 	platforms: [
 		.macOS(.v10_12),
 		.iOS(.v10)
 	],
     products: [
         .library(
-            name: "BackendMiddleware",
-			targets: ["BackendMiddleware"])
+            name: "ExtiriAPI",
+			targets: ["ExtiriAPI"])
     ],
     dependencies: [
 
     ],
     targets: [
         .target(
-            name: "BackendMiddleware",
+            name: "ExtiriAPI",
             dependencies: []),
         .testTarget(
-            name: "BackendMiddlewareTests",
-            dependencies: ["BackendMiddleware"]),
+            name: "ExtiriAPITests",
+            dependencies: ["ExtiriAPI"]),
     ]
 )

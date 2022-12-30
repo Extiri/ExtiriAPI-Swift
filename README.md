@@ -1,3 +1,3 @@
-# BackendMiddleware
+# ExtiriAPI
 
-A library for interacting with CodeMenu backend.
+A Swift client library for interacting with Extiri API.

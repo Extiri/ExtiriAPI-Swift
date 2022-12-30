@@ -7,27 +7,27 @@
 
 import Foundation
 
-public class BMSnippetsResponse: Codable {
-	public var page: BMPage
+public class SnippetsResponse: Codable {
+	public var page: Page
 	public var totalNumberOfResults: Int
 }
 
-public class BMPage: Codable {
-	public var items: [BMSnippet]
-	public var metadata: BMMetadata
+public class Page: Codable {
+	public var items: [Snippet]
+	public var metadata: Metadata
 }
 
-public class BMMetadata: Codable {
+public class Metadata: Codable {
 	public var page: Int
 	public var per: Int
 	public var total: Int
 }
   
-public class BMCount: Codable {
+public class Count: Codable {
 	public var count: Int
 }
 
-public class BMSnippet: Codable {
+public class Snippet: Codable {
 	public var id: String
 	public var title: String
 	public var language: String
@@ -38,21 +38,21 @@ public class BMSnippet: Codable {
 	public var creationDate: Date
 }
 
-public class BMToken: Codable {
+public class Token: Codable {
 	public var token: String
 }
 
-public class BMError: Codable {
+public class Error: Codable {
 	public var reason: String
 	public var error: Bool
 }
 
-public class BMUser: Codable {
+public class User: Codable {
 	public var id: String
 	public var name: String
 }
 
-public class BMNewUser: Codable {
+public class NewUser: Codable {
 	public init(name: String, email: String, password: String) {
 		self.name = name
 		self.email = email
@@ -64,7 +64,7 @@ public class BMNewUser: Codable {
 	public var password: String
 }
 
-public class BMLoginUser: Codable {
+public class LoginUser: Codable {
 	public init(email: String, password: String) {
 		self.email = email
 		self.password = password
@@ -74,7 +74,7 @@ public class BMLoginUser: Codable {
 	public var password: String
 }
 
-public class BMNewSnippet: Codable {
+public class NewSnippet: Codable {
 	public init(title: String, language: String, category: String, description: String, code: String) {
 		self.title = title
 		self.description = description
@@ -90,7 +90,7 @@ public class BMNewSnippet: Codable {
 	public var code: String
 }
 
-public class BMInfoUser: Codable {
+public class InfoUser: Codable {
 	public init(id: String, name: String, email: String) {
 		self.id = id
 		self.name = name

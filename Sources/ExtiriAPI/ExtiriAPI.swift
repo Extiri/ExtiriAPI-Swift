@@ -1,6 +1,6 @@
 import Foundation
 
-public class BackendMiddleware {
+public class ExtiriAPI {
 	var jsonDecoder: JSONDecoder {
 		get {
 			let jsonDecoder = JSONDecoder()
@@ -51,7 +51,7 @@ public class BackendMiddleware {
 	}
 	
 	
-	public func getTotalNumberOfSnippets(query: String? = nil, language: String? = nil, category: String? = nil, creator: String? = nil, completionHandler: @escaping (Result<BMCount, Error>) -> ()) {
+	public func getTotalNumberOfSnippets(query: String? = nil, language: String? = nil, category: String? = nil, creator: String? = nil, completionHandler: @escaping (Result<Count, Error>) -> ()) {
 		var urlString = host + "api/\(version)/snippets/countOfTotalResults/?"
 		
 		let parameters = [
@@ -88,7 +88,7 @@ public class BackendMiddleware {
 				}
 				
 				do {
-					let response = try self.jsonDecoder.decode(BMCount.self, from: data!)
+					let response = try self.jsonDecoder.decode(Count.self, from: data!)
 					
 					completionHandler(.success(response))
 				} catch {
@@ -100,7 +100,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func getSnippets(page: Int = 1, query: String? = nil, language: String? = nil, category: String? = nil, creator: String? = nil, completionHandler: @escaping (Result<BMSnippetsResponse, Error>) -> ()) {
+	public func getSnippets(page: Int = 1, query: String? = nil, language: String? = nil, category: String? = nil, creator: String? = nil, completionHandler: @escaping (Result<SnippetsResponse, Error>) -> ()) {
 		var urlString = host + "api/\(version)/snippets/?"
 		
 		let parameters = [
@@ -138,7 +138,7 @@ public class BackendMiddleware {
 				}
 				
 				do {
-					let response = try self.jsonDecoder.decode(BMSnippetsResponse.self, from: data!)
+					let response = try self.jsonDecoder.decode(SnippetsResponse.self, from: data!)
 					
 					completionHandler(.success(response))
 				} catch {
@@ -218,7 +218,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func getSnippet(id: String, completionHandler: @escaping (Result<BMSnippet, Error>) -> ()) {
+	public func getSnippet(id: String, completionHandler: @escaping (Result<Snippet, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/get/\(id)")!)
 		
 		request.httpMethod = "GET"
@@ -240,7 +240,7 @@ public class BackendMiddleware {
 				}
 				
 				do {
-					let snippet = try self.jsonDecoder.decode(BMSnippet.self, from: data!)
+					let snippet = try self.jsonDecoder.decode(Snippet.self, from: data!)
 					
 					completionHandler(.success(snippet))
 				} catch {
@@ -281,7 +281,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func createSnippet(snippet: BMNewSnippet, completionHandler: @escaping (Result<BMSnippet, Error>) -> ()) {
+	public func createSnippet(snippet: NewSnippet, completionHandler: @escaping (Result<Snippet, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/snippets/create")!)
 		
 		request.httpMethod = "POST"
@@ -315,7 +315,7 @@ public class BackendMiddleware {
 				}
 				
 				do {
-					let snippet = try self.jsonDecoder.decode(BMSnippet.self, from: data!)
+					let snippet = try self.jsonDecoder.decode(Snippet.self, from: data!)
 					
 					completionHandler(.success(snippet))
 				} catch {
@@ -363,7 +363,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func getUser(id: String, completionHandler: @escaping (Result<BMUser, Error>) -> ()) {
+	public func getUser(id: String, completionHandler: @escaping (Result<User, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/users/get/\(id)")!)
 		
 		request.httpMethod = "GET"
@@ -385,7 +385,7 @@ public class BackendMiddleware {
 				}
 				
 				do {
-					let user = try self.jsonDecoder.decode(BMUser.self, from: data!)
+					let user = try self.jsonDecoder.decode(User.self, from: data!)
 					
 					completionHandler(.success(user))
 				} catch {
@@ -397,7 +397,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func getUserInfo(completionHandler: @escaping (Result<BMInfoUser, Error>) -> ()) {
+	public func getUserInfo(completionHandler: @escaping (Result<InfoUser, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/users/me")!)
 
 		request.httpMethod = "GET"
@@ -420,7 +420,7 @@ public class BackendMiddleware {
 				}
 				
 				do {
-					let user = try self.jsonDecoder.decode(BMInfoUser.self, from: data!)
+					let user = try self.jsonDecoder.decode(InfoUser.self, from: data!)
 					
 					completionHandler(.success(user))
 				} catch {
@@ -432,7 +432,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func loginUser(user: BMLoginUser, completionHandler: @escaping (Result<BMToken, Error>) -> ()) {
+	public func loginUser(user: LoginUser, completionHandler: @escaping (Result<Token, Error>) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/users/login")!)
 		
 		let credentialsString = "\(user.email):\(user.password)"
@@ -469,7 +469,7 @@ public class BackendMiddleware {
 				}
 				
 				do {
-					let user = try self.jsonDecoder.decode(BMToken.self, from: data!)
+					let user = try self.jsonDecoder.decode(Token.self, from: data!)
 					
 					completionHandler(.success(user))
 				} catch {
@@ -511,7 +511,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func signupUser(user: BMNewUser, completionHandler: @escaping (Error?) -> ()) {
+	public func signupUser(user: NewUser, completionHandler: @escaping (Error?) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/users/signup")!)
 		
 		request.httpMethod = "POST"
@@ -550,7 +550,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	public func deleteUser(user: BMLoginUser, completionHandler: @escaping (Error?) -> ()) {
+	public func deleteUser(user: LoginUser, completionHandler: @escaping (Error?) -> ()) {
 		var request = URLRequest(url: URL(string: host + "api/\(version)/users/delete")!)
 		
 		request.httpMethod = "DELETE"
@@ -590,7 +590,7 @@ public class BackendMiddleware {
 		dataTask.resume()
 	}
 	
-	static func getByLoggingIn(user: BMLoginUser, completionHandler: @escaping (Result<BackendMiddleware, Error>) -> ()) {
+	static func getByLoggingIn(user: LoginUser, completionHandler: @escaping (Result<BackendMiddleware, Error>) -> ()) {
 		login(user: user) { result in
 			switch result {
 				case .success(let token):
@@ -601,13 +601,13 @@ public class BackendMiddleware {
 		}
 	}
 	
-	static func login(user: BMLoginUser, completionHandler: @escaping (Result<BMToken, Error>) -> ()) {
+	static func login(user: LoginUser, completionHandler: @escaping (Result<Token, Error>) -> ()) {
 		let backendMiddleware = BackendMiddleware(token: "")
 		
 		backendMiddleware.loginUser(user: user, completionHandler: completionHandler)
 	}
 	
-	static func signup(user: BMNewUser, completionHandler: @escaping (Error?) -> ()) {
+	static func signup(user: NewUser, completionHandler: @escaping (Error?) -> ()) {
 		let backendMiddleware = BackendMiddleware(token: "")
 		
 		backendMiddleware.signupUser(user: user, completionHandler: completionHandler)
@@ -616,7 +616,7 @@ public class BackendMiddleware {
 	private func parseAsError(data: Data) -> Error? {
 		do {
 			let jsonDecoder = JSONDecoder()
-			let error = try jsonDecoder.decode(BMError.self, from: data)
+			let error = try jsonDecoder.decode(Error.self, from: data)
 			return NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey: error.reason])
 		} catch {
 			return nil
