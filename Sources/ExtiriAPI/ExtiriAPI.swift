@@ -590,11 +590,11 @@ public class ExtiriAPI {
 		dataTask.resume()
 	}
 	
-	static func getByLoggingIn(user: LoginUser, completionHandler: @escaping (Result<BackendMiddleware, Error>) -> ()) {
+	static func getByLoggingIn(user: LoginUser, completionHandler: @escaping (Result<ExtiriAPI, Error>) -> ()) {
 		login(user: user) { result in
 			switch result {
 				case .success(let token):
-					completionHandler(.success(BackendMiddleware(token: token.token)))
+					completionHandler(.success(ExtiriAPI(token: token.token)))
 				case .failure(let error):
 					completionHandler(.failure(error))
 			}
@@ -602,21 +602,21 @@ public class ExtiriAPI {
 	}
 	
 	static func login(user: LoginUser, completionHandler: @escaping (Result<Token, Error>) -> ()) {
-		let backendMiddleware = BackendMiddleware(token: "")
+		let extiriAPI = ExtiriAPI(token: "")
 		
-		backendMiddleware.loginUser(user: user, completionHandler: completionHandler)
+		extiriAPI.loginUser(user: user, completionHandler: completionHandler)
 	}
 	
 	static func signup(user: NewUser, completionHandler: @escaping (Error?) -> ()) {
-		let backendMiddleware = BackendMiddleware(token: "")
+		let extiriAPI = ExtiriAPI(token: "")
 		
-		backendMiddleware.signupUser(user: user, completionHandler: completionHandler)
+		extiriAPI.signupUser(user: user, completionHandler: completionHandler)
 	}
 	
 	private func parseAsError(data: Data) -> Error? {
 		do {
 			let jsonDecoder = JSONDecoder()
-			let error = try jsonDecoder.decode(Error.self, from: data)
+			let error = try jsonDecoder.decode(RequestError.self, from: data)
 			return NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey: error.reason])
 		} catch {
 			return nil

@@ -42,7 +42,7 @@ public class Token: Codable {
 	public var token: String
 }
 
-public class Error: Codable {
+public class RequestError: Codable {
 	public var reason: String
 	public var error: Bool
 }
